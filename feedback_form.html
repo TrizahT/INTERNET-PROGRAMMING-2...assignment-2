@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; }
+        form { width: 300px; margin: auto; padding: 20px; background: white; box-shadow: 2px 2px 12px rgba(0,0,0,0.2); border-radius: 5px; }
+        input, textarea { width: 100%; margin: 5px 0; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #28a745; color: white; padding: 10px; border: none; cursor: pointer; width: 100%; }
+        button:hover { background: #218838; }
+    </style>
+</head>
+<body>
+
+    <h2>Submit Feedback</h2>
+    <form action="submit_feedback.php" method="POST" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" name="feedback" required></textarea>
+
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let feedback = document.getElementById("feedback").value.trim();
+            let rating = document.getElementById("rating").value.trim();
+
+            if (name === "" || email === "" || feedback === "" || rating === "") {
+                alert("All fields are required.");
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s]+$/.test(name)) {
+                alert("Name should contain only letters and spaces.");
+                return false;
+            }
+
+            if (!/^\S+@\S+\.\S+$/.test(email)) {
+                alert("Enter a valid email address.");
+                return false;
+            }
+
+            rating = parseInt(rating);
+            if (rating < 1 || rating > 5) {
+                alert("Rating must be between 1 and 5.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
